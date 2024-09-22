@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7cc2dfc12446114993ca905a6fc49a0, type: 3}
+  m_Name: PlanetPrefabCollection
+  m_EditorClassIdentifier: 
+  names:
+  - Aurelia
+  - Zyphor
+  - Tiberon
+  - Quinara
+  - Eldoria
+  - Volturn
+  - Nebulon
+  - Xaloria
+  - Galatea
+  - Orionis
+  - Draconis
+  - Phoenixia
+  - Arcturia
+  - Lyra
+  - Vespera
+  planetPrefabs:
+  - {fileID: 1322972096127079240, guid: bdbbf0517ac88194a9680b23e704f939, type: 3}
+  - {fileID: 545263331306120144, guid: 811c1d1ea0740a34fb10d8e039810e65, type: 3}
+  - {fileID: 2701993916884641677, guid: 124ed7a150c5b9743b7332c28296c5f8, type: 3}
+  - {fileID: 7866296313211785625, guid: a05d156b5dab76a45a5e64b3441171e9, type: 3}
+  - {fileID: 359647948870424976, guid: 1b02a7b1456671448bdf4e32373d6bca, type: 3}
+  - {fileID: 3442951106865931799, guid: 42f2742261ea416409f3fbb53a55c203, type: 3}
+  - {fileID: 3585053943962566651, guid: 2ef1a2b55a35de142b45f737b57bb507, type: 3}
+  - {fileID: 5410968667172076172, guid: 937bcbde5b5df204e951e95cb07935ef, type: 3}
+  - {fileID: 5582150537529517842, guid: 457df6ef278be0844ac8e9d03fd12b08, type: 3}
