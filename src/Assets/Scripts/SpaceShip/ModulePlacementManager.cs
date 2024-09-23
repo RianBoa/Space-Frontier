@@ -11,24 +11,23 @@ public class ModulePlacementManager : MonoBehaviour
     {
         if (commandCenter == null)
         {
-            Debug.LogError("Командный центр не установлен.");
+           
             return false;
         }
 
         int maxHulls = commandCenter.MaxHulls[commandCenter.Level - 1];
         int currentHulls = commandCenter.Hulls.Count;
 
-        Debug.Log($"Проверка добавления корпуса: текущие корпуса {currentHulls}, максимум для уровня {maxHulls}");
+      
 
         if (currentHulls >= maxHulls)
         {
-            Debug.LogWarning("Достигнут максимальный лимит корпусов для текущего уровня командного центра.");
+          
             return false;
         }
 
         if (commandCenter.Hulls.Contains(hull))
         {
-            Debug.LogWarning("Этот корпус уже добавлен в командный центр.");
             return false;
         }
 
@@ -38,7 +37,7 @@ public class ModulePlacementManager : MonoBehaviour
     {
         if (commandCenter == null)
         {
-            Debug.LogError("CommandCenter не встановлено в ModulePlacementManager.");
+      
             return false;
         }
 
@@ -61,7 +60,7 @@ public class ModulePlacementManager : MonoBehaviour
 
         if (moduleType == ModuleType.Engine && !CanAddEngine(commandCenter, targetHull))
         {
-            Debug.Log("Забаго двигунів");
+            
             return false;
         }
 
@@ -89,18 +88,17 @@ public class ModulePlacementManager : MonoBehaviour
     }
     public SlotPosition CheckSlotForModule(ModuleType moduleType, int slotIndex, Hull hull)
     {
-        Debug.Log("Корпус " + hull.ModuleId);
-        Debug.Log($"Проверяем слот с индексом: {slotIndex}");
+       
         var slot = hull.slots.FirstOrDefault(s => s.SlotIndex == slotIndex);
         if (slot == null)
         {
-            Debug.Log("Не існує такого слота");
+           
             return null;
         }
 
         if (slot.IsOccupied)
         {
-            Debug.Log("Слот зайнятий");
+      
             return null;
         }
 
@@ -110,14 +108,14 @@ public class ModulePlacementManager : MonoBehaviour
         // Проверяем несовместимость с модулем слева
         if (leftSlot != null && leftSlot.IsOccupied && !ModuleInfo.IsCompatible(moduleType, leftSlot.occupiedModule.ModuleType))
         {
-            Debug.Log($"Модуль {ModuleInfo.GetModuleName(moduleType)} несовместим с {leftSlot.occupiedModule.ModuleName}.");
+          
             return null;
         }
 
         // Проверяем несовместимость с модулем справа
         if (rightSlot != null && rightSlot.IsOccupied && !ModuleInfo.IsCompatible(moduleType, rightSlot.occupiedModule.ModuleType))
         {
-            Debug.Log($"Модуль {ModuleInfo.GetModuleName(moduleType)} несовместим с {rightSlot.occupiedModule.ModuleName}.");
+         
             return null;
         }
 

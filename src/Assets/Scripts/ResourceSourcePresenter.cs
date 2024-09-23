@@ -13,15 +13,11 @@ public class ResourceSourcePresenter
 
         // Подписываемся на события View
        
-        view.OnEnterResourceSource += OnEnter;
+        view.OnEnterResourceSource += DisplayResource;
         view.OnExitResourceSource += OnExit;
 
         // Подписываемся на события модели
         model.OnStartRecharge += HandleStartRecharge;
-        view.OnEnterResourceSource += OnEnter;
-
-        model.OnFinishRecharge +=
-      
     }
 
     private void HandleExitResourceSource()
@@ -38,7 +34,7 @@ public class ResourceSourcePresenter
     {
         
     }
-    private void OnEnter()
+    private void DisplayResource()
     {
         view.DisplayResourceInfo(model.GetResourceName(), model.OreAvailable);
 

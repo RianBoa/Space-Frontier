@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E33D9C5D-E1BC-C398-0625-8792EA0ABD8E}</ProjectGuid>
+    <ProjectGuid>{4AF8F85C-0B1F-0CB4-4603-17A6BA4D934A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.2D.Tilemap.Editor</AssemblyName>
@@ -989,19 +989,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UnityEditor.UI.csproj">
-      <Project>{D10DCC70-277F-70E7-B626-E35F174DD2B2}</Project>
+      <Project>{72739ED5-D7D2-9DB7-A978-3D3F7512775C}</Project>
       <Name>UnityEditor.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.csproj">
-      <Project>{8CD587D8-759F-91D8-B74D-8C1C2A3F953C}</Project>
+      <Project>{27938785-83FA-53CC-F082-77CCB806C6FA}</Project>
       <Name>UnityEngine.UI</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.TestRunner.csproj">
-      <Project>{5EC6D577-3028-5F6D-FA71-D0F313959D5F}</Project>
+      <Project>{152A4601-15E2-58FE-146E-A36C38C36FAB}</Project>
       <Name>UnityEngine.TestRunner</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEditor.TestRunner.csproj">
-      <Project>{70A8C0C6-DCB2-B984-CF80-5EA87C352C25}</Project>
+      <Project>{4842AD8D-375B-0FD7-28DE-84AA818F6990}</Project>
       <Name>UnityEditor.TestRunner</Name>
     </ProjectReference>
   </ItemGroup>

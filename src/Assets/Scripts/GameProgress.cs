@@ -34,7 +34,6 @@ public class GameProgress : IGameProgress
 
     public void CollectResourcesFromPlanet()
     {
-        if(resourceManager.GetResourceAmount(ResourceType.Ore) == requiredCollections)
         if (collectedOre >= requiredCollections)
         {
             if (!asteroidsSpawned)
@@ -96,4 +95,9 @@ public class GameProgress : IGameProgress
     {
        ModulesPurchased?.Invoke(); 
     }
+    public int CollectedOre()
+    {
+        return collectedOre;
+    }
+
 }

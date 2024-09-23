@@ -10,9 +10,11 @@ public class ResourceSourceView : MonoBehaviour, IResourceSourceView
     private TextMeshProUGUI statusText;
     private Transform spaceShip;
     private string resourceName;
+    public string Id {  get; set; }
     
     public event Action OnEnterResourceSource;
     public event Action OnExitResourceSource;
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("SpaceShip"))
@@ -32,7 +34,7 @@ public class ResourceSourceView : MonoBehaviour, IResourceSourceView
 
     public void DisplayResourceInfo(string resourceName, int oreAmount)
     {
-        statusText.text = $"{resourceName}: Available Ore: {oreAmount}";
+        statusText.text = $"planet id : {Id}";
     }
 
 

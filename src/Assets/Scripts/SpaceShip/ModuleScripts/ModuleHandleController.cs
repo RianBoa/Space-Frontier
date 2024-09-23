@@ -24,7 +24,7 @@ public class ModuleHandleController : IModuleHandler
 
 
     public ModuleHandleController(ShipModuleAggregator shipModuleAggregator, ShipModuleStats shipModuleStats, ShipModuleContainer shipModuleContainer, ModuleShop moduleShop, ModulePlacementManager modulePlacementManager)
-    {  this.shipModuleAggregator = shipModuleAggregator;
+    {   this.shipModuleAggregator = shipModuleAggregator;
         this.shipModuleStats = shipModuleStats;
         this.shipModuleContainer = shipModuleContainer;
         this.moduleShop = moduleShop;
@@ -180,4 +180,35 @@ public class ModuleHandleController : IModuleHandler
         else 
             return null;
     }
+   public bool TryPurchaseAllRequiresModules()
+    {
+        if(HandleCenterPurchase())
+        {
+            if (HandleHullPurchase())
+            {
+                Hull newHull = commandCenter.Hulls[commandCenter.Hulls.Count - 1];
+                HandleModuleSelection(ModuleType.Storage, newHull, 0);
+                HandleModuleSelection(ModuleType.Repairer, newHull, 1);
+                HandleModuleSelection(ModuleType.Generator, newHull, 2);
+                HandleModuleSelection(ModuleType.Collector, newHull, 3);
+            }
+            else return false;
+            if (HandleHullPurchase())
+            {
+                Hull newHull = commandCenter.Hulls[commandCenter.Hulls.Count - 1];
+                HandleModuleSelection(ModuleType.Engine, newHull, 0);
+                HandleModuleSelection(ModuleType.Battery, newHull, 1);
+                HandleModuleSelection(ModuleType.Cannon, newHull, 2);
+            }
+            if(HandleHullPurchase())
+            {
+                Hull newHull = commandCenter.Hulls[commandCenter.Hulls.Count - 1];
+                HandleModuleSelection(ModuleType.Converter, newHull, 0);
+            }
+            else return false;
+
+        }
+     
+        return true;
+    } 
 }

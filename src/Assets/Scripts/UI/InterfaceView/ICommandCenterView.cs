@@ -15,6 +15,7 @@ public interface ICommandCenterView
     public event Action UpgradeCCenterClicked;
     public event Action UpgradeHullClicked;
     public event Action SellHullClicked;
+    public event Action AutoBuyClicked;
 
 
 }

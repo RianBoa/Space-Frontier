@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameProgressView : MonoBehaviour, IGameProgressView
 {
@@ -11,8 +12,8 @@ public class GameProgressView : MonoBehaviour, IGameProgressView
     [SerializeField] private TextMeshProUGUI statusText;
     [SerializeField] private GameObject pirateShipPrefab;
     [SerializeField] private Transform pirateSpawnPoint;
-    [SerializeField] private GameObject[] asteroidPrefabs;
-    [SerializeField] private Transform[] asteroidSpawnPoints;
+    private List<GameObject> asteroidPrefabs;
+   
     [SerializeField] private GameObject spaceShip;
     [SerializeField] private GameObject SpawnPoint;
     [SerializeField] private Camera mainCamera;
@@ -51,12 +52,10 @@ public class GameProgressView : MonoBehaviour, IGameProgressView
 
     public void SpawnAsteroids()
     {
-        foreach (var spawnPoint in asteroidSpawnPoints)
+      for (int i = 0; i < asteroidPrefabs.Count; i++)
         {
-            int randomIndex = Random.Range(0, asteroidPrefabs.Length);
-            Instantiate(asteroidPrefabs[randomIndex], spawnPoint.position, spawnPoint.rotation);
+            asteroidPrefabs[i].gameObject.SetActive(true);
         }
-        Debug.Log("Asteroids have spawned!");
     }
     public void ShowPiratesWarning(string message)
     {
@@ -89,6 +88,10 @@ public class GameProgressView : MonoBehaviour, IGameProgressView
     public void StartCoroutineBattle(IEnumerator couroutine)
     {
         StartCoroutine(couroutine);
+    }
+    public void SetAsteroid(List<GameObject > asteroids)
+    { 
+        asteroidPrefabs = asteroids;
     }
     
     

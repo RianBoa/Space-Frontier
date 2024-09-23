@@ -6,6 +6,7 @@ public interface IGameProgress
     public int collectedOre { get; set; }  
     public void CheckVictoryCondition();
     public void AddCollectedOre(int oreAmount);
+    public int CollectedOre();
   public bool CheckDefeatCondition();
     public void OnAllModulesPurchased();
     public void CollectResourcesFromPlanet();

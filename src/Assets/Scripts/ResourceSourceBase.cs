@@ -1,8 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class ResourceSourceBase : IResourceSource
 {
+    private string Id;
     protected string name;
     private int initialOre;
     protected int totalOre; // ќбщее количество руды
@@ -15,6 +17,7 @@ public abstract class ResourceSourceBase : IResourceSource
 
     public ResourceSourceBase(int initialOre, float rechargeTime, string name)
     {
+        Id = GenerateId();
         this.initialOre = initialOre;
         this.rechargeTime = rechargeTime;
         this.name = name;
@@ -25,11 +28,14 @@ public abstract class ResourceSourceBase : IResourceSource
     {
         if (isRecharging || isBeingExtracted == false)
         {
-            return 0; // ≈сли ресурс на перезар€дке, нельз€ собирать руду
+            Debug.LogError("Cannot extract ore: either the resource is recharging or extraction hasn't started.");
+            return 0; // ≈сли ресурс на перезар€дке или добыча не началась, нельз€ собирать руду
+      // ≈сли ресурс на перезар€дке, нельз€ собирать руду
         }
 
-        int oreToExtract = System.Math.Min(amount, totalOre);
+        int oreToExtract = UnityEngine.Mathf.Min(amount, totalOre);
         totalOre -= oreToExtract;
+     
 
         if (totalOre <= 0)
         {
@@ -39,6 +45,12 @@ public abstract class ResourceSourceBase : IResourceSource
         return oreToExtract;
     }
 
+    private string GenerateId()
+    {
+        return Guid.NewGuid().ToString();  
+    }
+    public string GetId()
+        { return Id; }  
     public bool IsDepleted()
     {
         return totalOre <= 0 && isRecharging;
@@ -84,5 +96,9 @@ public abstract class ResourceSourceBase : IResourceSource
     private int GetInitialOreAmount()
     {
         return initialOre;
+    }
+    public int GetAvailableOre()
+    {
+        return totalOre;
     }
 }

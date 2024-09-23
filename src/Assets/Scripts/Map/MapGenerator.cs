@@ -19,7 +19,7 @@ public class MapGenerator : MonoBehaviour
         stationSpawner.StationSpawned += position =>
         {
             spawnPoint.transform.position = position;  // Сохраняем позицию спауна
-            planetSpawner.SpawnPlanets(tileSpawner.spawnedTiles, MapSettings.numberOfPlanets, SpaceShip);
+            planetSpawner.SpawnPlanets(tileSpawner.spawnedTiles, MapSettings.numberOfPlanets, 3);
         };
         planetSpawner.OnPlanetSpawned += () => MapGenerated?.Invoke();
 

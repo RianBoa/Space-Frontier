@@ -4,7 +4,7 @@ using TMPro;
 
 public class ResourceUI : MonoBehaviour
 {
-   private ResourceManager resourceManager;
+  private ResourceManager resourceManager;
 
   [SerializeField] private TextMeshProUGUI oreText;
   [SerializeField] private TextMeshProUGUI energyText;

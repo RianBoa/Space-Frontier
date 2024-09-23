@@ -1,12 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml.Schema;
-using UnityEngine;
-
 public class ShipModuleAggregator
 {
-   ShipModuleContainer moduleContainer;
-   ShipModuleStats shipStats;
+    ShipModuleContainer moduleContainer;
+    ShipModuleStats shipStats;
 
     public ShipModuleAggregator(ShipModuleContainer moduleContainer, ShipModuleStats shipStats)
     {
@@ -34,9 +29,11 @@ public class ShipModuleAggregator
         int totalAcceleration = 0;
         int totalMaxHull = 0;
 
-        foreach (var moduleId in moduleContainer.GetAllModulesById())
+        // Теперь получаем все модули напрямую
+        foreach (var module in moduleContainer.GetAllModules())
         {
-            var module = moduleContainer.GetModuleById(moduleId);
+   
+
             // Общие характеристики
             totalDurabilityModifier += module.DurabilityModifiers[module.Level - 1];
 
@@ -106,5 +103,7 @@ public class ShipModuleAggregator
         shipStats.CurrentDamage = totalDamage;
         shipStats.CurrentMaxHull = totalMaxHull;
         shipStats.CurrentAcceleration = totalAcceleration;
+
+    
     }
 }

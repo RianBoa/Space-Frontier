@@ -10,7 +10,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1C3587A9-D2B4-6215-C534-1C0D9485E6C1}</ProjectGuid>
+    <ProjectGuid>{EAFF8DE8-9812-D529-B980-769C0ADC4349}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Unity.2D.Common.Runtime</AssemblyName>
@@ -834,11 +834,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Mathematics.Player.csproj">
-      <Project>{1E9A8D51-207F-BC5F-90DF-65B12210A868}</Project>
+      <Project>{F6C72E60-51B1-6C4F-61E4-FBA5D75094C7}</Project>
       <Name>Unity.Mathematics.Player</Name>
     </ProjectReference>
     <ProjectReference Include="UnityEngine.UI.Player.csproj">
-      <Project>{D4224704-60D5-6069-429D-B8D526051CE5}</Project>
+      <Project>{FBF46929-2C83-61A5-2DC5-142874104B01}</Project>
       <Name>UnityEngine.UI.Player</Name>
     </ProjectReference>
   </ItemGroup>

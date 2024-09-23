@@ -2,6 +2,8 @@ using System.Collections;
 
 public interface IResourceSourceView
 {
+    public string Id { get; set; }
+
     event System.Action OnEnterResourceSource;
     event System.Action OnExitResourceSource;
 

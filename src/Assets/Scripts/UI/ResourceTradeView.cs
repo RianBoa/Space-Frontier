@@ -28,16 +28,29 @@ public class ResourceTradeView : MonoBehaviour, IResourceTradeView
         buyButton.onClick.AddListener(OnBuyButtonClicked);
         sellButton.onClick.AddListener(OnSellButtonClicked);
 
-      
-        ShowBuyButton();
+    
     }
 
     private void OnResourceSelectionChanged(int selectedIndex)
     {
+        Debug.Log($"Selected Resource Index: {selectedIndex}");
+
         if (int.TryParse(quantityInput.text, out int quantity) && quantity > 0)
         {
             var selectedResource = GetSelectedResource();
             OnResourceChanged?.Invoke(selectedResource, quantity);
+
+            // В зависимости от выбранного ресурса показываем соответствующую кнопку
+            if (selectedResource == ResourceType.Ore)
+            {
+                Debug.Log("Ore selected, showing Sell button");
+                ShowSellButton();  // Показать кнопку продажи для "Ore"
+            }
+            else if (selectedResource == ResourceType.Energy)
+            {
+                Debug.Log("Energy selected, showing Buy button");
+                ShowBuyButton();   // Показать кнопку покупки для "Energy"
+            }
         }
         else
         {

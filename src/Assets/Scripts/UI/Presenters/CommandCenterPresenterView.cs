@@ -17,6 +17,7 @@ public class CommandCenterPresenter
         this.c_view.UpgradeCCenterClicked += TryUpgradeCommandCenter;
         this.c_view.UpgradeHullClicked += TryUpgradeHull;
         this.c_view.SellHullClicked += TrySellHull;
+        this.c_view.AutoBuyClicked += TryBuyRequiredModules;
         
     }
 
@@ -101,6 +102,17 @@ public class CommandCenterPresenter
         {
             UpdateHullButtons(com);
             c_view.UpdateHullButtonsState(com);
+        }
+    }
+    public void TryBuyRequiredModules()
+    {
+       if(m_handle.TryPurchaseAllRequiresModules())
+        {
+            com = m_handle.GetCommandCenter();
+            UpdateHullButtons(com);
+            c_view.UpdateCenterLevelText(com);
+            c_view.UpdateHullButtonsState(com);
+            c_view.UpdateUIAfterPurchase(com);
         }
     }
 }

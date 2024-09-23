@@ -48,4 +48,8 @@ public class ShipModuleContainer
     {
         return new List<string>();
     }
+    public List<IModule> GetAllModules()
+    {
+        return new List<IModule>(modules.Values);
+    }
 }

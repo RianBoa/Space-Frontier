@@ -2,7 +2,7 @@ using System.Collections;
 
 public interface IShipFunctionsView
 {
-    public event System.Action<IResourceSource> OnEnterResourceSource;
+    public event System.Action<string> OnEnterResourceSource;
     public event System.Action OnExitResourceSource;
     public event System.Action OnExitPlanetCollider;
     public event System.Action OnStartOreCollection;

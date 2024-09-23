@@ -12,6 +12,8 @@ public class PresenterAndDependencyInit : MonoBehaviour
     [SerializeField] private GameProgressView gameProgressView;
     [SerializeField] private ShipFunctionsView shipFunctionsView;
     [SerializeField] private ResourceUI resourceUI;
+    [SerializeField] private ShipStatsView shipStatsView;
+    [SerializeField] private PlanetSpawner planetSpawner;
 
     private void Start()
     {
@@ -29,13 +31,14 @@ public class PresenterAndDependencyInit : MonoBehaviour
         var battleManager = dependencyInit.InitializeBattleManager();
         var shipModule = dependencyInit.InitializeShipFunctionsModule(shipModuleStats, resourceManager);
        
-
+        shipStatsView.SetStats(shipModuleStats, shipModuleContainer);
         // Инициализация ModuleHandleController
         var moduleHandleController = dependencyInit.InitializeModuleHandleController(
             moduleAggregator, shipModuleStats, shipModuleContainer, moduleShop, modulePlacementManager      
         );
         var gameProgress = dependencyInit.InitializeGameProgress(resourceManager, shipModuleStats, battleManager, moduleHandleController);
         resourceUI.SetResourceManager(resourceManager);
+        planetSpawner.OnAsteroidsInit += gameProgressView.SetAsteroid;
 
        // Создание фабрики презентеров
        PresenterFactory presenterFactory = new PresenterFactory(

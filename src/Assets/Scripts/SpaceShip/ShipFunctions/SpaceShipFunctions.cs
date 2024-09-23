@@ -24,41 +24,57 @@ public class ShipFunctionsModel : IShipFunctionsModel
 
     public IEnumerator CollectOreCoroutine(IResourceSource resourceSource, Action<int> onOreCollected)
     {
-        if(resourceManager.GetResourceAmount(ResourceType.Ore) == shipStats.CurrentOreStorageCapacity)
+        int availableOre = resourceSource.GetAvailableOre(); // Получаем доступное количество руды
+       
+
+        if (resourceManager.GetResourceAmount(ResourceType.Ore) == shipStats.CurrentOreStorageCapacity)
         {
-            onError.Invoke("Your storage is full!");
+            onError?.Invoke("Your storage is full!");
             yield break;
         }
+
         // Проверяем, достаточно ли энергии для начала сбора руды
         if (resourceManager.GetResourceAmount(ResourceType.Energy) < shipStats.CurrentEnergyConsumptionPerCollection)
         {
             onError?.Invoke("Not enough energy to collect ore.");
-            yield break; 
-        }
-        if (resourceSource.IsDepleted())
-        {
-            onError.Invoke("Currently is depleted");
             yield break;
         }
+
+        if (resourceSource.IsDepleted())
+        {
+            onError?.Invoke("Currently is depleted");
+            yield break;
+        }
+
         int oreCollectionRate = shipStats.CurrentOreCollectionRate;
         int totalOreToCollect = Mathf.Min(oreCollectionRate, shipStats.CurrentOreStorageCapacity);
+      
+
         int steps = 30; // Количество шагов за 3 секунды (1 шаг = 0.1 секунды)
-        int orePerStep = totalOreToCollect / steps;
-        int energyPerStep = shipStats.CurrentEnergyConsumptionPerCollection / steps;
+
+        // Используем float для расчета долей руды и энергии на каждый шаг
+        float orePerStep = (float)totalOreToCollect / steps;
+        float energyPerStep = (float)shipStats.CurrentEnergyConsumptionPerCollection / steps;
+
+        
 
         // Плавный процесс сбора руды
         for (int i = 0; i < steps; i++)
         {
-            // Собираем небольшую часть руды и уменьшаем энергию
-            if (resourceManager.GetResourceAmount(ResourceType.Energy) >= energyPerStep)
+            // Проверяем, достаточно ли энергии для продолжения сбора
+            if (resourceManager.GetResourceAmount(ResourceType.Energy) >= Mathf.CeilToInt(energyPerStep))
             {
-                resourceManager.SpendResource(ResourceType.Energy, energyPerStep);
-                int collectedOre = resourceSource.ExtractOre(orePerStep);
+                resourceManager.SpendResource(ResourceType.Energy, Mathf.CeilToInt(energyPerStep)); // Округляем энергию до ближайшего целого числа
+
+                resourceSource.StartExtraction();
+             
+
+                int collectedOre = resourceSource.ExtractOre(Mathf.CeilToInt(orePerStep)); // Округляем количество руды до ближайшего целого числа
 
                 if (collectedOre > 0)
                 {
-                    shipStats.CurrentOreStorageCapacity -= orePerStep;
-                    onOreCollected?.Invoke(orePerStep);
+                    shipStats.CurrentOreStorageCapacity -= collectedOre;
+                   
                 }
                 else
                 {
@@ -76,13 +92,16 @@ public class ShipFunctionsModel : IShipFunctionsModel
         }
 
         // Завершающий шаг, если осталось немного руды
-        int remainingOre = totalOreToCollect % steps;
+        int remainingOre = Mathf.RoundToInt(totalOreToCollect % steps);
         if (remainingOre > 0)
         {
             shipStats.CurrentOreStorageCapacity -= remainingOre;
             onOreCollected?.Invoke(remainingOre); // Последнее обновление
         }
+        resourceManager.AddResource(ResourceType.Ore, totalOreToCollect);
+        onOreCollected?.Invoke(totalOreToCollect);
     }
+
 
 
     public IEnumerator RepairCoroutine(Action<int> onRepairProgress, Action<string> onError)

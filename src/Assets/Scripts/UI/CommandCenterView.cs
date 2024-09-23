@@ -16,6 +16,7 @@ public class CommandCenterView : MonoBehaviour, ICommandCenterView
     [SerializeField] private Button buyHullButton;
     [SerializeField] private Button sellHullButton;
     [SerializeField] private Button upgradeHullButton;
+    [SerializeField] private Button autoBuyButton;
 
     [SerializeField] private TextMeshProUGUI CenterLevelText;
     [SerializeField] private TextMeshProUGUI HullMaxInfo;
@@ -30,6 +31,7 @@ public class CommandCenterView : MonoBehaviour, ICommandCenterView
     public event Action UpgradeCCenterClicked; 
     public event Action UpgradeHullClicked;
     public event Action SellHullClicked;
+    public event Action AutoBuyClicked;
 
 
     private void Start()
@@ -39,6 +41,7 @@ public class CommandCenterView : MonoBehaviour, ICommandCenterView
         buyHullButton.onClick.AddListener(OnBuyHullClicked);
         upgradeHullButton.onClick.AddListener(OnHullUpgradeClicked);
         sellHullButton.onClick.AddListener(OnSellHullClicked);
+        autoBuyButton.onClick.AddListener(OnAutoBuyClicked);
     }
 
 
@@ -130,6 +133,7 @@ public class CommandCenterView : MonoBehaviour, ICommandCenterView
         if (com != null)
         {
             buyCommandCenterButton.gameObject.SetActive(false);
+            autoBuyButton.gameObject.SetActive(false);
             upgradeCommandCenterButton.gameObject.SetActive(true);
             if (com.Level != 3)
                 UpgradeCenterPriceText.text = "Upgrade\n Command Center\n  ₡" + com.LevelPrices[com.Level];
@@ -156,5 +160,9 @@ public class CommandCenterView : MonoBehaviour, ICommandCenterView
     public void OnBuyHullClicked()
     {
         BuyHullClicked?.Invoke();
+    }
+    public void OnAutoBuyClicked()
+    {
+        AutoBuyClicked?.Invoke();
     }
 }

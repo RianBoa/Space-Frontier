@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 public class ShipFunctionsPresenter
 {
     private readonly IShipFunctionsModel model;
@@ -19,9 +21,20 @@ public class ShipFunctionsPresenter
         this.model.onError += HandleError;
     }
 
-    private void HandleEnterResourceSource(IResourceSource resourceSource)
+    private void HandleEnterResourceSource(string Id)
     {
-        model.SetCurrentResourceSource(resourceSource); // Устанавливаем текущий ресурс
+       
+        var resource = ResourceSourceIdCollection.GetResourceById(Id);
+        if (resource != null)
+        {
+            model.SetCurrentResourceSource(resource);
+            view.ShowMessage($"Planet id is {resource.GetId()}");
+            UnityEngine.Debug.Log("Planet ore " + resource.OreAvailable);
+        }
+        else
+        {
+            view.ShowError("Resource not found");
+        }
     }
 
     // Обработка выхода из зоны с ресурсами
@@ -37,7 +50,8 @@ public class ShipFunctionsPresenter
 
     private void HandleExitPlanetCollider()
     {
-        model.OnLeaveCollider();
+        gameProgress.CollectResourcesFromPlanet();
+        gameProgress.HandleColliderExit();
     }
 
     private void HandleStartOreCollection()
@@ -46,7 +60,8 @@ public class ShipFunctionsPresenter
         {
             // Запускаем корутину через View
             view.StartCustomCoroutine(model.CollectOreCoroutine(model.CurrentResourceSource, AddCollectedOre));
-
+          
+            view.ShowMessage("Collected ore" + gameProgress.CollectedOre().ToString());
         }
         else
         {

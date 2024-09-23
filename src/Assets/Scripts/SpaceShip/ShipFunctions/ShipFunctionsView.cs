@@ -5,11 +5,13 @@ using System.Runtime.CompilerServices;
 
 public class ShipFunctionsView : MonoBehaviour, IShipFunctionsView
 {
-    public event System.Action<IResourceSource> OnEnterResourceSource;
+    public event System.Action<string> OnEnterResourceSource;
     public event System.Action OnExitResourceSource;
     public event System.Action OnExitPlanetCollider;
     public event System.Action OnStartOreCollection;
     public event System.Action OnStartRepair;
+
+    private bool isInResourceZone = false;
 
     [SerializeField] TextMeshProUGUI textOnEnterCollider;
     [SerializeField] TextMeshProUGUI textOnError;
@@ -17,7 +19,7 @@ public class ShipFunctionsView : MonoBehaviour, IShipFunctionsView
     private void Update()
     {
         // Проверяем, нажата ли клавиша "E" для сбора ресурса
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && isInResourceZone)
         {
             CollectOre();
         }
@@ -31,18 +33,22 @@ public class ShipFunctionsView : MonoBehaviour, IShipFunctionsView
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        var resourceSource = other.GetComponent<IResourceSource>();
-        if (resourceSource != null && !resourceSource.IsDepleted())
+        var resourceSource = other.GetComponent<ResourceSourceView>();
+
+        if (resourceSource != null)
         {
             // Сообщаем подписчикам (например, презентеру), что корабль вошел в зону с ресурсами
             textOnEnterCollider.gameObject.SetActive(true);
-          
-            OnEnterResourceSource?.Invoke(resourceSource);
+            isInResourceZone = true;
+            textOnEnterCollider.text = resourceSource.Id;
+            OnEnterResourceSource?.Invoke(resourceSource.Id);
+
         }
     }
 
     private void OnTriggerExit2D(Collider2D other)
     {
+        isInResourceZone = false;
         if (other.CompareTag("Planet"))
         {
             // Сообщаем о выходе из зоны планеты

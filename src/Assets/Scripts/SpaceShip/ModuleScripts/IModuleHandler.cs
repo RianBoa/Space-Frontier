@@ -13,5 +13,5 @@ public interface IModuleHandler
     public CommandCenter GetCommandCenter();
     public event Action<CommandCenter> CommandCenterPurchased;
     public event Action<CommandCenter> HullPurchased;
-
+    public bool TryPurchaseAllRequiresModules();
 }
